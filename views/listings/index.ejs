@@ -1,0 +1,210 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    .filter-container{
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        /* Prevent container from overflowing on mobile */
+        max-width: 100vw;
+        overflow: hidden;
+    }
+    #filters {
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-bottom: 0.5rem;
+    }
+    #filters::-webkit-scrollbar {
+        display: none;
+    }
+    #filters{
+        scrollbar-width: none; /* For Firefox */
+    }
+    .filter {
+        text-align: center;
+        margin-right: 2rem;
+        opacity: 0.7;
+        flex: 0 0 auto; /* Prevent shrinking/wrapping */
+    }
+    .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+    .filter i {
+        font-size: 1.5rem;
+    }
+    .tax-info {
+        display: none;
+    }
+    .arrow{
+        position: relative;
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: opacity 180ms ease;
+        z-index:10;
+        opacity: 0.7;
+        user-select: none;
+    }
+    @media (max-width: 480px) {
+        .arrow { 
+            width: 32px; 
+            height: 32px; 
+            font-size: 0.95rem; 
+        }
+        .filter p { 
+            font-size: 0.78rem; 
+        }
+    }
+    .arrow.hidden {
+        display: none !important;
+    }
+    .arrow:hover { 
+        transform: translateY(-1px); 
+        box-shadow: 0 8px 20px rgba(13,13,13,0.1); 
+    }
+</style>
+
+
+<div class="filter-container">
+    <button class="arrow left">&#10094;</button>
+    <div id="filters" class="mt-4 ">
+        <!-- ...existing filter icons... -->
+        <div class="filter">
+            <div><i class="fa-solid fa-fire-flame-curved"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-sun"></i></div>
+            <p>Beaches</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-city"></i></i></div>
+            <p>Iconic cities</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-tents"></i></div>
+            <p>Cabins</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-water-ladder"></i></div>
+            <p>Pools</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-gift"></i></div>
+            <p>Holiday specials</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-heart"></i></div>
+            <p>Couples</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-campground"></i></i></div>
+            <p>Camping</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-wheat-awn"></i></i></div>
+            <p>Countryside</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-snowflake"></i></i></div>
+            <p>Winter wonderlands</p>
+        </div>  
+        <div class="filter">
+            <div><i class="fa-solid fa-tree"></i></i></div>
+            <p>Farms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-igloo"></i></i></div>
+            <p>Unique stays</p>
+        </div>
+    </div>
+    <button class="arrow right">&#10095;</button>
+</div>
+
+
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row mt-4 ">
+    <% for(let listing of allListings) { %> 
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card" >
+                <img 
+                    src="<%= listing.image.url %>" 
+                    class="card-img-top" 
+                    alt="<%= listing.title %>" 
+                    style="height: 20rem; object-fit: cover;"
+                />
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%=listing.title %></b>
+                        <br>
+                        &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                        <!--<span class="tax-info">&nbsp; &nbsp; +18% GST</span>-->
+                    </p>
+                </div>
+            </div>
+        </a>
+    <% } %>
+</div>
+
+
+<!--<script>
+    let taxSwitch = document.getElementById('flexSwitchCheckChecked');
+    taxSwitch.addEventListener('click', ()=>{
+        let taxInfo = document.getElementById('tax-info');
+        for(info of taxInfo){
+            if(info.style.display != 'inline'){
+                info.style.display = 'inline';
+            } else {
+                info.style.display = 'none';
+            }
+        }
+    });
+</script>-->
+
+<script>
+    // filepath: c:\Users\rhyth\OneDrive\Desktop\Rhythm\webDev\Chill-Abode\views\listings\index.ejs
+    const filters = document.getElementById('filters');
+    const leftArrow = document.querySelector('.arrow.left');
+    const rightArrow = document.querySelector('.arrow.right');
+
+    function updateArrows() {
+        // Hide left arrow if at start, right arrow if at end
+        leftArrow.classList.toggle('hidden', filters.scrollLeft <= 5);
+        rightArrow.classList.toggle('hidden', filters.scrollLeft + filters.clientWidth >= filters.scrollWidth - 5);
+    }
+
+    leftArrow.addEventListener('click', () => {
+        filters.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+    rightArrow.addEventListener('click', () => {
+        filters.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+
+    filters.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+
+    // Initial check
+    window.addEventListener('DOMContentLoaded', updateArrows);
+</script>
