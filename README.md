@@ -1,7 +1,6 @@
 # ChillAbode
 
-**Live demo:** `[https://YOUR_DEPLOYED_LINK_HERE](https://chill-abode.onrender.com)`
-*(Replace the URL above with your actual deployed link.)*
+**Live demo:** `https://chill-abode.onrender.com`
 
 ---
 
@@ -28,7 +27,7 @@ This README shows how to run the project locally, where to put environment varia
 * Express
 * EJS
 * CSS
-* (Possibly MongoDB — if your app uses a database, confirm `schema.js` / `models/`)
+* MongoDB 
 
 ---
 
