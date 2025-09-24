@@ -9,7 +9,7 @@
 
 ChillAbode is a web application for browsing and managing rental/home listings (or replace with a short description of what your project does). It is built with Node.js, Express and EJS for server-rendered views, with static assets in the `public/` folder.
 
-This README shows how to run the project locally, where to put environment variables, and how to contribute.
+This README shows how to run the project locally, where to put environment variables, etc.
 
 ---
 
@@ -58,13 +58,13 @@ npm install
 
 3. **Create a `.env` file**
 
-Create a file named `.env` in the project root and add the environment variables your app expects. A common example :
+Create a file named `.env` in the project root and add the environment variables the app expects. A common example :
 
 ```env
 PORT=3000
 MONGODB_URI=mongodb://localhost:27017/chillabode
 SESSION_SECRET=your_session_secret
-# Add any other keys your app needs (API keys, cloud config, etc.)
+# Add any other keys app needs (API keys, cloud config, etc.)
 ```
 
 > If you are not sure which env variables are required, open `app.js`, `config` or `cloudconfig.js` to see what the project expects.
@@ -77,7 +77,7 @@ npm start
 # npm run dev
 ```
 
-Then open `http://localhost:3000` (or the `PORT` you set) in your browser.
+Then open `http://localhost:3000` (or the `PORT` you set) in the browser.
 
 ---
 
