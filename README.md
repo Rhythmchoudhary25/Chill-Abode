@@ -1,6 +1,6 @@
 # ChillAbode
 
-**Live demo: [Live demo](https://chill-abode.onrender.com)
+ [Live demo](https://chill-abode.onrender.com)
 
 
 ---
